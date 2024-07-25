@@ -6,10 +6,6 @@ variable "availability_zones" {
   type = list
 }
 
-variable "vpc_cidr" {
-  type = string
-}
-
 variable "subnets" {
   type = list(object({
   cidr = string
@@ -26,6 +22,10 @@ variable "internet_gateway_name" {
   type = string
 }
 
+variable "ports" {
+  type = list(number)
+}
+
 variable "ec2_instances" {
   type  = list(object({
   type  = string
@@ -33,14 +33,11 @@ variable "ec2_instances" {
   }))
 }
   
-variable "ports" {
-  type = list
-}
+variable "vpc_cidr" {
+  type          = list(object({
+  cidr          = string
+  dns_support   = bool
+  dns_hostnames = bool
+  }))
+} 
 
-variable "dns_support" {
-  type = bool
-}
-
-variable "dns_hostnames" {
-  type = bool
-}

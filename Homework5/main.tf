@@ -3,10 +3,9 @@ provider "aws" {
 }
 
 resource "aws_vpc" "kaizen" {
-  cidr_block           = var.vpc_cidr
-  enable_dns_support   = var.dns_support
-  enable_dns_hostnames = var.dns_hostnames
-
+  cidr_block = var.vpc_cidr[0].cidr
+  enable_dns_support = var.vpc_cidr[0].dns_support
+  enable_dns_hostnames = var.vpc_cidr[0].dns_hostnames
   tags = {
     Name = "kaizen"
   }
@@ -129,6 +128,6 @@ resource "aws_instance" "amazon_instance" {
   }
 }
 
-output "ec2_instance_ids" {
+output "ec2_instance_ips" {
   value = [aws_instance.ubuntu_instance.public_ip, aws_instance.amazon_instance.public_ip]
 }
